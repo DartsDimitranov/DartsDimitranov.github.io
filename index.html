@@ -206,17 +206,18 @@ $("#ok-btn").click(function () {
 		if (TochkiZaMahane <= 180) {
 			player1Score = player1Score - TochkiZaMahane;
 			console.log("TochkiZaMahane "  + TochkiZaMahane + "  " + " player1Score "+ player1Score);
-			_Player1Average.push(TochkiZaMahane);
+			
+			if (ScoreHTML!=="") {
+				$("#player2-score-points").removeClass("no-on-turn");
+				$("#player1-score-points").addClass("no-on-turn");
+				switcher = true;
+				_Player1Average.push(TochkiZaMahane);
 			for (var i = 0; i < _Player1Average.length; i++) {
 			    ScoreSum1 += _Player1Average[i] << 0;
 			}
 			console.log(ScoreSum1/_Player1Average.length);
 			$("#player1-average-points").text((ScoreSum1 / _Player1Average.length).toFixed(2));
 			console.log(_Player1Average);
-			if (ScoreHTML!=="") {
-				$("#player2-score-points").removeClass("no-on-turn");
-				$("#player1-score-points").addClass("no-on-turn");
-				switcher = true;
 			}if(player1Score==0){
 				newLeg();
 				Leg_of_player1 +=1;
@@ -250,17 +251,18 @@ $("#ok-btn").click(function () {
 		if (TochkiZaMahane <= 180) {
 			player2Score = player2Score - TochkiZaMahane;
 			console.log("TochkiZaMahane "  + TochkiZaMahane + "  " + " player2Score "+ player2Score);
-			_Player2Average.push(TochkiZaMahane);
+			
+			if (ScoreHTML!=="") {
+				$("#player1-score-points").removeClass("no-on-turn");
+				$("#player2-score-points").addClass("no-on-turn");
+				switcher = false;
+				_Player2Average.push(TochkiZaMahane);
 			for (var i = 0; i < _Player2Average.length; i++) {
 			     ScoreSum2 += _Player2Average[i] << 0;
 			}
 			console.log(ScoreSum2/_Player2Average.length);
 			$("#player2-average-points").text((ScoreSum2 / _Player2Average.length).toFixed(2));
 			console.log(_Player2Average);
-			if (ScoreHTML!=="") {
-				$("#player1-score-points").removeClass("no-on-turn");
-				$("#player2-score-points").addClass("no-on-turn");
-				switcher = false;
 			}if(player2Score==0){
 				newLeg();
 				Leg_of_player2 +=1;
@@ -384,6 +386,34 @@ $("#score-fix-btn-close").click(function(event) {
 
 
 });});
+
+
+
+$("#ok-btn").bind('touchstart touchend', function() {
+        
+        $(this).toggleClass('ok-btn-clicked');
+    });
+$(".single-div").bind('touchstart touchend', function() {
+        
+        $(this).toggleClass('single-div-clicked number-clicked');
+    });
+
+$(".delete-btn").bind('touchstart touchend', function() {
+        
+        $(this).toggleClass('delete-btn-clicked');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1180,6 +1210,7 @@ text-align: center;
 	.averages{
 		font-size: 40px;
 	}
+	
 .player-name{
 	    font-size: 21px;
     font-family: arial;
@@ -1213,6 +1244,9 @@ background-color: #23081d;
     outline: none;
     padding-top: 23px;
 }
+.single-div-clicked{
+	font-size: 17px;
+}
 .redo-btn{
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#931d45+0,714077+100,2989d8+100 */
 background: #931d45; /* Old browsers */
@@ -1223,7 +1257,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#931d45', end
 }
 .number{
 	    background-color: rgb(35, 8, 29);
+	    transition: 0.2s;
 }
+.number-clicked{
+		background-color: rgb(73, 21, 61);
+		transition: 0.2s;
+	}
 .socre-value{
 	background-color: white;
 	text-shadow: 2px 2px 2px #bdb8b8;
@@ -1237,8 +1276,12 @@ background: -moz-linear-gradient(top, #1e9638 0%, #38a5a3 100%, #1c9686 100%); /
 background: -webkit-linear-gradient(top, #1e9638 0%,#38a5a3 100%,#1c9686 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, #1e9638 0%,#38a5a3 100%,#1c9686 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e9638', endColorstr='#1c9686',GradientType=0 ); /* IE6-9 */
+transition: 0.2s;
 	}
-
+.ok-btn-clicked{
+	background: linear-gradient(to bottom, #156c28 0%,#287877 100%,#115d53 100%);
+	transition: 0.2s;
+}
 .delete-btn{
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a02a20+2,bf8a41+100,1c9686+100 */
 background: #a02a20; /* Old browsers */
@@ -1246,6 +1289,11 @@ background: -moz-linear-gradient(top, #a02a20 2%, #bf8a41 100%, #1c9686 100%); /
 background: -webkit-linear-gradient(top, #a02a20 2%,#bf8a41 100%,#1c9686 100%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom, #a02a20 2%,#bf8a41 100%,#1c9686 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a02a20', endColorstr='#1c9686',GradientType=0 ); /* IE6-9 */
+transition: 0.2s;
+}
+.delete-btn-clicked{
+background: linear-gradient(to bottom, #751e17 2%,#9a6c2d 100%,#1c9686 100%);
+transition: 0.2s;
 }
 .no-on-turn{
 	opacity: 0.5;
